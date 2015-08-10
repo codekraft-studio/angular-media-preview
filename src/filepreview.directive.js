@@ -83,7 +83,7 @@ angular.module('app').
           if( !container.length ) {
             container = angular.element( document.createElement('div') );
             container[0].id = id;
-            element[0].parentNode.insertBefore(container[0], element[0].nextSibling);
+            element[0].parentNode.insertBefore(container[0], element[0]);
           }
 
           // reset container
