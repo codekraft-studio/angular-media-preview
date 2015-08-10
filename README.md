@@ -1,4 +1,4 @@
-# angular-file-preview
+# angular-image-preview
 ### display your images before upload it
 you will never upload the wrong image again!
 
@@ -11,12 +11,12 @@ angular.module('myApp', []).
 and add to your html template the directive in every input file where you want to use it:
 
 ```html
-<input type="file" ng-model="myUpload" file-preview>
+<input type="file" ng-model="myUpload" image-preview>
 ```
 
 it works with multiple files too:
 ```html
-<input type="file" ng-model="myUpload" multiple file-preview>
+<input type="file" ng-model="mySecondUpload" accept="image/*" multiple image-preview>
 ```
 
 The directive takes care to update your model value, too!
