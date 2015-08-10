@@ -23,7 +23,10 @@ angular.module('app').
       function createPreview(src) {
         var img = angular.element( document.createElement('img') );
         img[0].src = src;
-        img[0].className = 'preview';
+        img[0].style.margin = '2%';
+        img[0].style.height = 'auto';
+        img[0].style.width = '25%';
+        img[0].style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
         return img[0];
       }
 
