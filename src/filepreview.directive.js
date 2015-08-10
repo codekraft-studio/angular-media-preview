@@ -19,15 +19,12 @@ angular.module('app').
       // create file reader
       var reader = new FileReader();
 
-      // create preview image element
-      function createPreview(src) {
-        var img = angular.element( document.createElement('img') );
-        img[0].src = src;
-        img[0].style.margin = '2%';
-        img[0].style.height = 'auto';
-        img[0].style.width = '25%';
-        img[0].style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
-        return img[0];
+      function setDefaultStyle(elem) {
+        elem.style.margin = '2%';
+        elem.style.width = '25%';
+        elem.style.height = 'auto';
+        elem.style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
+        return elem;
       }
 
       // check for child nodes
@@ -54,12 +51,35 @@ angular.module('app').
 
             if( attrs.accept && attrs.accept.indexOf('image/*') > -1 ) {
 
-              container[0].appendChild( createPreview(e.target.result) );
+              var img = document.createElement('img');
+              // set item default style
+              setDefaultStyle(img);
+              // set item src url
+              img.src = e.target.result;
+
+              container[0].appendChild( img );
 
             } else {
 
               if( e.target.result.indexOf('data:image') > -1 ) {
-                container[0].appendChild( createPreview(e.target.result) );
+                var img = document.createElement('img');
+                // set item default style
+                setDefaultStyle(img);
+                // set item src url
+                img.src = e.target.result;
+
+                container[0].appendChild( img );
+              }
+
+              if( e.target.result.indexOf('data:video') > -1 ) {
+                var video = document.createElement('video');
+                // set default item style
+                setDefaultStyle(video);
+                // set source url
+                video.src = e.target.result;
+                // create video controls
+                video.setAttribute('controls', true);
+                container[0].appendChild(video);
               }
 
             }
@@ -84,8 +104,11 @@ angular.module('app').
 
           // add preview container if is not present
           if( !container.length ) {
+            // create preview container element
             container = angular.element( document.createElement('div') );
+            // set container id
             container[0].id = id;
+            // append before his related input
             element[0].parentNode.insertBefore(container[0], element[0]);
           }
 
