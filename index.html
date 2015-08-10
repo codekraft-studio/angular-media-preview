@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular File Preview</title>
+  </head>
+  <style media="screen">
+    .preview{
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+  <body>
+
+    <div>
+      <input type="file" ng-model="firstInput" accept="image/*" multiple image-preview>
+    </div>
+
+    <div>
+      <input type="file" ng-model="secondInput" multiple image-preview>
+    </div>
+
+  </body>
+  <script src="test/vendor/angular.min.js"></script>
+  <script src="src/filepreview.module.js"></script>
+  <script src="src/filepreview.directive.js"></script>
+</html>
