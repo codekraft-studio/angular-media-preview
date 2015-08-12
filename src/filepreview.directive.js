@@ -35,15 +35,14 @@ angular.module('app').
       // during change event
       element.on('change', function(e) {
 
-        // set model view value
-        attrs.multiple ? ngModel.$setViewValue(files) : ngModel.$setViewValue(files[0]);
-
         // get element if present
         var container = angular.element( document.getElementById(id) );
         // reset item count
         var count = 0;
         // get files
         var files = element[0].files;
+        // set model view value
+        attrs.multiple ? ngModel.$setViewValue(files) : ngModel.$setViewValue(files[0]);
 
         reader.onload = function(e) {
 
