@@ -14,17 +14,28 @@ angular.module('app').
 
     function link(scope, element, attrs, ngModel) {
 
+      // create id for preview(s) container
       var id = attrs.ngModel + '-preview';
 
       // create file reader
       var reader = new FileReader();
 
-      function setDefaultStyle(elem) {
-        elem.style.margin = '2%';
-        elem.style.width = '25%';
-        elem.style.height = 'auto';
-        elem.style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
-        return elem;
+      // create container if not exist
+      if(!document.getElementById(id)) {
+        var div = document.createElement('div');
+        div.id = id;
+        element[0].parentNode.insertBefore(div, element[0]);
+      }
+
+      // create element preview defaults
+      function createPreview(type, src) {
+        var el = document.createElement(type);
+        el.style.margin = '2%';
+        el.style.width = '25%';
+        el.style.height = 'auto';
+        el.style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
+        el.src = src;
+        return el;
       }
 
       // check for child nodes
@@ -32,11 +43,12 @@ angular.module('app').
         return (element.childNodes.length);
       }
 
+
       // during change event
       element.on('change', function(e) {
 
         // get element if present
-        var container = angular.element( document.getElementById(id) );
+        var container = document.getElementById(id);
         // reset item count
         var count = 0;
         // get files
@@ -47,38 +59,26 @@ angular.module('app').
         reader.onload = function(e) {
 
           scope.$apply(function(){
+            // store result
+            var result = e.target.result;
 
+            // input accept only images
             if( attrs.accept && attrs.accept.indexOf('image/*') > -1 ) {
 
-              var img = document.createElement('img');
-              // set item default style
-              setDefaultStyle(img);
-              // set item src url
-              img.src = e.target.result;
-
-              container[0].appendChild( img );
+              container.appendChild( createPreview('img', result) );
 
             } else {
 
-              if( e.target.result.indexOf('data:image') > -1 ) {
-                var img = document.createElement('img');
-                // set item default style
-                setDefaultStyle(img);
-                // set item src url
-                img.src = e.target.result;
-
-                container[0].appendChild( img );
+              // is a image type
+              if( result.indexOf('data:image') > -1 ) {
+                container.appendChild( createPreview('img', result) );
               }
 
-              if( e.target.result.indexOf('data:video') > -1 ) {
-                var video = document.createElement('video');
-                // set default item style
-                setDefaultStyle(video);
-                // set source url
-                video.src = e.target.result;
-                // create video controls
+              // is a video type
+              if( result.indexOf('data:video') > -1 ) {
+                var video = createPreview('video', result);
                 video.setAttribute('controls', true);
-                container[0].appendChild(video);
+                container.appendChild(video);
               }
 
             }
@@ -98,32 +98,20 @@ angular.module('app').
           })
         }
 
+
         // check if there are files to read
         if( files && files.length ) {
 
-          // add preview container if is not present
-          if( !container.length ) {
-            // create preview container element
-            container = angular.element( document.createElement('div') );
-            // set container id
-            container[0].id = id;
-            // append before his related input
-            element[0].parentNode.insertBefore(container[0], element[0]);
-          }
-
           // reset container
-          container[0].innerHTML = '';
+          container.innerHTML = '';
 
           // read element data url
-          reader.readAsDataURL( files[count] );
-
-        } else {
-
-          if( hasNodes( container[0] ) ) {
-            container[0].innerHTML = '';
-          }
+          return reader.readAsDataURL( files[count] );
 
         }
+
+        return container.innerHTML = '';
+
       })
 
     }
