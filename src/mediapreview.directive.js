@@ -1,8 +1,10 @@
 angular.module('app').
 
-  directive('imagePreview', imagePreview);
+  directive('mediaPreview', mediaPreview);
 
-  function imagePreview() {
+  mediaPreview.$inject = ['$log'];
+
+  function mediaPreview($log) {
 
     var directive = {
       restrict: 'A',
@@ -14,6 +16,21 @@ angular.module('app').
 
     function link(scope, element, attrs, ngModel) {
 
+      // return if isn't input
+      if( element[0].nodeName.toLowerCase() !== 'input' ) {
+        $log.warn('mediaPreview:', 'The element is not a input node! ', element);
+        return;
+      }
+
+      // return if isn't type file
+      if( attrs.type != 'file' ) {
+        $log.warn('mediaPreview:', 'Input type is not file on following element! ', element);
+        return;
+      }
+
+      // set restricted accept types
+      if( !element.attr('accept') || element.attr('accept') != 'image/*,video/*' ) element.attr('accept', 'image/*,video/*');;
+
       // create id for preview(s) container
       var id = attrs.ngModel + '-preview';
 
@@ -21,7 +38,7 @@ angular.module('app').
       var reader = new FileReader();
 
       // create container if not exist
-      if(!document.getElementById(id)) {
+      if( !document.getElementById(id) ) {
         var div = document.createElement('div');
         div.id = id;
         element[0].parentNode.insertBefore(div, element[0]);
@@ -107,7 +124,6 @@ angular.module('app').
 
           // read element data url
           return reader.readAsDataURL( files[count] );
-
         }
 
         return container.innerHTML = '';
