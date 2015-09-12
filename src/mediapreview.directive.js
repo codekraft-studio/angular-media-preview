@@ -79,25 +79,16 @@ angular.module('app').
             // store result
             var result = e.target.result;
 
-            // input accept only images
-            if( attrs.accept && attrs.accept.indexOf('image/*') > -1 ) {
-
+            // is a image type
+            if( result.indexOf('data:image') > -1 ) {
               container.appendChild( createPreview('img', result) );
+            }
 
-            } else {
-
-              // is a image type
-              if( result.indexOf('data:image') > -1 ) {
-                container.appendChild( createPreview('img', result) );
-              }
-
-              // is a video type
-              if( result.indexOf('data:video') > -1 ) {
-                var video = createPreview('video', result);
-                video.setAttribute('controls', true);
-                container.appendChild(video);
-              }
-
+            // is a video type
+            if( result.indexOf('data:video') > -1 ) {
+              var video = createPreview('video', result);
+              video.setAttribute('controls', true);
+              container.appendChild(video);
             }
 
           })
