@@ -1,7 +1,7 @@
 # angular-media-preview
-### display your images before upload it
+### create a preview for each selected file
 
-**Getting starteed:**
+**Getting started:**
 
 Change to the directive file with your module appname.
 
@@ -14,37 +14,35 @@ and load the script it in your HTML.
 ```html
 <script type="text/javascript" src="mediapreview.directive.js"></script>
 ```
-Add the directive to every input you want to create a preview.
+
+**Basic setup:**
+
+Add the directive to input where you want to listen.
 
 ```html
 <input type="file" ng-model="myUpload" media-preview>
 ```
-
-it works with multiple files too, by adding multiple attribute:
+Now when some files are selected, the directive will create a preview and display in a container.
+You can specify a custom container adding the attribute: __preview-container__, like so:
 ```html
-<input type="file" ng-model="mySecondUpload" multiple media-preview>
+<input type="file" ng-model="myUpload" preview-container="myContainer" media-preview>
 ```
-The directive will add the accept attribute to match only the default accepted media types, for now: image, videos.
 
-And that's it, with this basic configuration the directive will create a preview container right above the input.
+The directive will add or override the __accept__ attribute to match only the following accepted media types: audio, image, videos.
 
-If you want you can specify the preview-container like so, anywhere in the page where you want to show it, and override the default style created by the directive adding to it a custom class name!
-```html
-<input type="file" ng-model="againUpload" media-preview>
+And that's it, with this basic configuration you can start trying it by selecting some media file on your computer.
 
-<div id="againUpload-preview" class="my-preview"></div>
+**Customizations:**
+* __preview-container__: the container that holds the preview elements
+* __container-class__: the class to be added to the preview container
+* __preview-class__: the class to be added to the preview element
 
-```
-And in the css:
-```css
-.my-preview {}
+If one of the attributes above is specified will override the default behaviours.
 
-.my-preview img,video {}
-```
-__IMPORTANT: be sure to have a ng-model bind to your input, otherwise the directive will not work!__
+__IMPORTANT: be sure to have a model bind to your input (attribute ng-model), otherwise the directive will not work!__
 
-The directive takes care to update your model value, so you don't have to write your own one.
+__The directive takes care to update your model value, so you don't have to write your own one.__
 
 Check the [example](https://github.com/codekraft-studio/angular-media-preview/tree/master/example) too see how it works!
 
-Developed by Filippo Conti - [codekraft-studio](http://codekraft.it)
+Developed by [codekraft-studio](http://codekraft.it)
