@@ -4,9 +4,9 @@ html, body { width: 100%; min-height: 100%; position: relative; margin: 0;height
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, summary { display: block; }
 
-h1 { color: #FFF; font-weight: 700; font-size: 5em; }
+h1 {color: #EAEAEA; font-weight: 700;font-size: 4em;}
 
-h2 { color: #337ab7; font-weight: 800; font-size: 2.4em; font-family: 'rs'; }
+h2 {color: #4D89BD; font-weight: 800; font-size: 2.4em; font-family: 'rs';}
 
 h3 { color: #555; font-weight: 700; font-size: 2em; margin: 64px 0 16px; font-family: 'rs'; }
 
@@ -32,9 +32,9 @@ td, th { padding: 0; }
 
 .hcont { width: 1120px; margin: 0 auto; height: 100%; position: relative; }
 
-article header { margin: 0; background: #23282E; color: #fff; padding: 40px 0 80px; width: 100%; border-top: 3px solid #337ab7; }
+article header { margin: 0; background: #23282E; color: #fff;padding: 40px 0; width: 100%; border-top: 3px solid #337ab7;}
 article header h1, article header h2 { margin: 0; padding: 0; }
-article header h1 { padding-top: 7%; }
+article header h1 {/* padding-top: 2%; */}
 article section { margin: 16px 0 64px; }
 article .pusher { width: 100%; height: 120px; clear: both; }
 article footer { position: absolute; bottom: 0; width: 100%; background-color: #23282E; color: white; }
@@ -45,6 +45,12 @@ article footer .share-btn { text-align: right; position: absolute; top: 0; right
 article footer .share-btn .share-link { width: 30px; height: 30px; display: inline-block; overflow: hidden; margin: 20px 0 0 15px; font-size: 0px; }
 article footer .share-btn .share-link.share-googleplus { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAIAAAC0Ujn1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABAtJREFUeNq0lk1sE0cUgL2zaxuvnXhjQuIENyQBgiAmDkb8SZUiqiIhSqtKIIQAQTnAAQ4oCCJRShSpAi7toYciOCCEBKiVKnqoUNVKVCoKlQiNRBJ+QoKDAgHHqUPsdWyvd3d2efEkm+l6E3PJO4zezM588+bNe2+W+e/gTtvCCLItmCwgmpv/s67rpi7DMKY5hSNF0AZUz0vhOCFCaxopgiazp2wUfPa6laik1MYgGMK6Bq2aSeOuTjZ/AseWFqmrE2FcuAc3F5etCngOHHUE19koW6TRt4qYHLnyg5RMLfXwHEKePV8Ndf7tZzSWYehzQMtZc5ctLztzweZwRi59H7v3l7PSv7qtgw/UgO2PzraqYgJWjqTSQIfZMsYjUnap2wU70VazbaGGQrr3ZDtb4R++efXVL7dUKSvFx8a7uwKf77KXlDAsinf949/2WXnLNraxuaSxieXdnmAzrv5IjzxHM4ZbOAS4yFcO/gV9/MF9TdPINU4OD008+tcX3ig0haGbexdHdjvMqcA4G4tquZw6mUqlswHwkqVDpu/B4Zw+l8Ohzwh0E097Ac25eOiC4XnfMrX7Do/+eUdNT4KOEHozQ7dOGRyP6bkcKEs+3mpwodVkBRRx4KllUBEnyFh7m5FwfokFWpfl9N07oAS+2A1mGqfxhTeAdS+uXTZYIH3tpzQpy1DhYdAZujwRG6f8i5D3WBu/pUXHOHr3d3Hg2eL1m4U1a7vbjouD/eTsRmspDhZZo4lw9Q3O4DqmOiBs3Q5fH7YenejpJitRXmg6nZ/Tc0z+okV+0Z+8fVN51ke+sjxPAma2tlFW0/p8lY+2Qn45aNM0UELnLvo/2W5crDHH5BbruJ4tAhznCm/ioHqUCgzvhuS2C2XsIlfzuQuR2vrI9SuFGxQvT7DAXrfCe+IbtrxiyuSJcSk2mn7zGoLZUeaD1csPHlFSyZFff54tYVZcCzTY621tZ33lqcH+gR+/SzzpNW5VCIZCZ8/z1YFlu/e/vv2TTollyUam8OBWBYEL3b6O08A1Tg2SeNzT8+3X0HVVVpkS1fRiWF8jEnxkH0UU6UeARFtuLDr1EW4VayZuId2MVoaHSIjU7DlAl3YSCVWf7oAuFBBNVeZ6twz5X1EFFk68y2i6pzFUFlrvDtRAbOiq6hSE0obVdfsO1+49JMWivR2ncSZDJ44poqcNMrLRSEWMsRQML/5yr7exic4pJSVG//ht6MZVqJ8Gl5bizy4sc/Z1Rx50pu2L3LX19lKvpihyfCw9/FLP545l6ZjvRaezC5RK3hXLZMUnvYWVgPY+2eaDfhbIPEL3u3kWSUlZtawBptr0oWhCB9dX8C4IOZpuKm9zpaIZbbzzhl6UPs/f03sBBgDJJ0gi1QS5MwAAAABJRU5ErkJggg==); }
 article footer .share-btn .share-link.share-facebook { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAIAAAC0Ujn1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhdJREFUeNq0lT9P20AYxnPnc3AaCEla4aEOUiOUqUu3VmJpl05dW3WAr9DyDSqEujCwwEB3JD4FYmEAdSlTWKIIRIcof1o3JRC/Z/eVj1xcLpb/RHmG6Pzm/POj533tI2ubPzKzEc3MTDNEs0S7Pc+bWCeEpEcLaPBXQlFYUeksiVlvxXpklrI6I57rfq93/wyIfIBKZzG5Zkn//KFqLRmyXt9udIcG0w1K6cRMaMw4Pr1/FuSiAJzf7Utwbj1faidYpGVUxTQqZk5Ujs+aF802Ln62bICh3blafLKsZ3NpAkEtFXWxuBvyL3tHABwp1JfrQr93XXhcwWQSB4J2mEZGIXDHAdeXDEHQOdwlQHsB3VcyGc654AbrE+kRgdQq+UKerlj5+90affOy6s8DbfcGF82O3CnoC2VLY3MRaOHo3ar5olaQRWOOfd14K9a7B6eIlq3DhaDPl54KekQgwN2wf8/Or9RiMJmIQHYOGwDw6nlx42MNL/s3w9fr39Cg5osxNm7DaPik9/RfPjKS+oUSdBoT8eASJ5r8L5VO4/hS0So3wVEQdoNqOWwzTZRG0HXwAYm/fBNbpKYclkmsNsbpQcpjd2xfmbn0aPkWhAUy1YmO99eb9tb+CefgAMSZjQRHwa+/pNXhdveacwff7+B4TJW1QGSNfKFsMZZFNB0p5SujzoOga5ou6NO6loEKm5Iep43/BBgAMV8Mj0GzadMAAAAASUVORK5CYII=); }
+
+.col-md-6 {
+    width: 48%;
+    padding: 1%;
+    float: left;
+}
 
 .btn {
   color: #FFF;
@@ -68,8 +74,8 @@ article footer .share-btn .share-link.share-facebook { background-image: url(dat
   left: 0; }
 
 .myImage {
-  width: 40%;
-  margin: 2%;
+  width: 48%;
+  margin: 1%;
   min-height: 100px;
   background-image: url('http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif');
   background-repeat: no-repeat;
@@ -92,7 +98,7 @@ audio.myImage{
 
 .custom-preview {
   width: 100%;
-  border: thin solid #eee;
+  border: 2px solid #eee;
+  background-color: #F5F5F5;
+  min-height: 50px;
 }
-
-/*# sourceMappingURL=style.css.map */
