@@ -2,122 +2,134 @@ angular.module('app').
 
   directive('mediaPreview', mediaPreview);
 
-  mediaPreview.$inject = ['$log'];
+  mediaPreview.$inject = ['$log', '$document'];
 
-  function mediaPreview($log) {
+  function mediaPreview($log,$document) {
 
     var directive = {
       restrict: 'A',
       require: 'ngModel',
-      link: link
+      link: _link
     }
 
     return directive;
 
-    function link(scope, element, attrs, ngModel) {
+    function _link(scope, elem, attrs, ngModel) {
 
-      // return if isn't input
-      if( element[0].nodeName.toLowerCase() !== 'input' ) {
-        $log.warn('mediaPreview:', 'The element is not a input node! ', element);
+      // check if valid input element
+      if( elem[0].nodeName.toLowerCase() !== 'input' ) {
+        $log.warn('mediaPreview:', 'The directive will work only for input element, actual element is a', elem[0].nodeName.toLowerCase());
         return;
       }
 
-      // return if isn't type file
+      // check if valid input type file
       if( attrs.type != 'file' ) {
-        $log.warn('mediaPreview:', 'Input type is not file on following element! ', element);
+        $log.warn('mediaPreview:', 'Expected input type file, received instead:', attrs.type, 'on element:', elem);
         return;
       }
 
-      // set restricted accept types
-      if( !element.attr('accept') || element.attr('accept') != 'image/*,video/*' ) element.attr('accept', 'image/*,video/*');;
-
-      // create id for preview(s) container
-      var id = attrs.ngModel + '-preview';
-
-      // create file reader
-      var reader = new FileReader();
-
-      // create container if not exist
-      if( !document.getElementById(id) ) {
-        var div = document.createElement('div');
-        div.id = id;
-        element[0].parentNode.insertBefore(div, element[0]);
+      // set all media type if nothing is specified
+      if( !elem.attr('accept') ) {
+        elem.attr('accept', 'image/*,video/*,audio/*');
       }
 
-      // create element preview defaults
-      function createPreview(type, src) {
-        var el = document.createElement(type);
-        el.style.margin = '2%';
-        el.style.width = '25%';
-        el.style.height = 'auto';
-        el.style.boxShadow = '0 0 0 4px white, 0px 1px 7px 4px rgba(0, 0, 0, 0.15), 0px 0px';
-        el.src = src;
-        return el;
+      // the preview container
+      var container;
+
+      // get custom class or set default
+      var previewClass = attrs.previewClass || 'media-preview';
+
+      // get custom class or set default
+      var containerClass = attrs.containerClass || 'media-container';
+
+      // as default if nothing is specified or
+      // the element specified is not a valid html
+      // element: create the default media container
+      // and append before input element
+      if( !attrs.previewContainer || ( !document.getElementById(attrs.previewContainer) && !angular.isElement(attrs.previewContainer) ) ) {
+
+        // create container
+        container = angular.element( document.createElement('div') );
+
+        // append before elem
+        elem.parent()[0].insertBefore(container[0], elem[0]);
+
+      } else {
+
+        // get the container
+        container = angular.isElement(attrs.previewContainer) ? attrs.previewContainer : angular.element(document.getElementById(attrs.previewContainer));
       }
 
-      // check for child nodes
-      function hasNodes(element) {
-        return (element.childNodes.length);
-      }
+      // add default class
+      container.addClass(containerClass);
 
+      // listen for input change
+      elem.on('change', function(e) {
 
-      // during change event
-      element.on('change', function(e) {
-
-        // get element if present
-        var container = document.getElementById(id);
-        // reset item count
-        var count = 0;
         // get files
-        var files = element[0].files;
-        // set model view value
+        var files = elem[0].files;
+
+        // update model value
         attrs.multiple ? ngModel.$setViewValue(files) : ngModel.$setViewValue(files[0]);
 
-        reader.onload = function(e) {
-
-          scope.$apply(function(){
-            // store result
-            var result = e.target.result;
-
-            // is a image type
-            if( result.indexOf('data:image') > -1 ) {
-              container.appendChild( createPreview('img', result) );
-            }
-
-            // is a video type
-            if( result.indexOf('data:video') > -1 ) {
-              var video = createPreview('video', result);
-              video.setAttribute('controls', true);
-              container.appendChild(video);
-            }
-
-          })
-
-        }
-
-        reader.onloadend = function() {
-          scope.$apply(function() {
-            if( count < (files.length-1) ) {
-              // increase count
-              count++;
-              // read next file
-              return reader.readAsDataURL( files[count] );
-            }
-          })
-        }
-
+        // reset container
+        container.empty();
 
         // check if there are files to read
         if( files && files.length ) {
 
-          // reset container
-          container.innerHTML = '';
+          // start the load process for each file
+          angular.forEach(files, function(key, index) {
 
-          // read element data url
-          return reader.readAsDataURL( files[count] );
+            // init filereader
+            var reader = new FileReader();
+
+            // the element to append
+            var media_element;
+
+            // when item data is ready
+            // check if valid type
+            reader.onload = function(e) {
+
+              // get src
+              var result = e.target.result;
+
+              // if audio
+              if( result.indexOf('data:audio') > -1 ) {
+                media_element = angular.element( document.createElement('audio') );
+                media_element.addClass(previewClass);
+                media_element.attr('controls', 'true');
+                return container.append( media_element );
+              }
+
+              // if image
+              if( result.indexOf('data:image') > -1 ) {
+                media_element = angular.element( document.createElement('img') );
+                media_element.addClass(previewClass);
+                return container.append( media_element );
+              }
+
+              // if video
+              if( result.indexOf('data:video') > -1 ) {
+                media_element = angular.element( document.createElement('video') );
+                media_element.addClass(previewClass);
+                media_element.attr('controls', 'true');
+                return container.append( media_element );
+              }
+
+            }
+
+            // when media is loaded finally add
+            // source to element
+            reader.onloadend = function(e) {
+              return media_element.attr('src', e.target.result)
+            }
+
+            // read file
+            reader.readAsDataURL( key );
+          })
+
         }
-
-        return container.innerHTML = '';
 
       })
 

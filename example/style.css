@@ -49,30 +49,50 @@ article footer .share-btn .share-link.share-facebook { background-image: url(dat
 .btn {
   color: #FFF;
   background-color: #337ab7;
-  margin: 63px auto;
-  padding: 0.7% 5% 1%;
+  margin: 10px auto;
+  padding: 2% 5%;
   font-size: 1.4em;
   font-weight: 600;
   display: inline-block;
   position: relative;
   font-family: 'rs'; }
 
-  .btn:hover {
 
-    background-color: #285f8f;
-    border-color: #204d74;
-    -webkit-transition: 375ms;
-    transition: 375ms; }
+.btn input[type="file"] {
+  opacity: 0;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0; }
 
-  .btn input[type="file"] {
-    opacity: 0;
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0; }
+.myImage {
+  width: 40%;
+  margin: 2%;
+  min-height: 100px;
+  background-image: url('http://www.arabianbusiness.com/skins/ab.main/gfx/loading_spinner.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+audio.myImage{
+  background-image: none;
+}
 
 
+.media-preview {
+  width: 100%;
+  height: auto;
+}
+
+.media-container {
+  margin-bottom: 20px;
+}
+
+.custom-preview {
+  width: 100%;
+  border: thin solid #eee;
+}
 
 /*# sourceMappingURL=style.css.map */
