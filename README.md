@@ -10,7 +10,7 @@ npm i angular-media-preview
 or clone it from GitHub.
 Load the script to your HTML page:
 ```html
-<script type="text/javascript" src="mediapreview.module.js"></script>
+<script type="text/javascript" src="angular-media-preview.module.js"></script>
 ```
 and add the module to your app dependencies:
 
