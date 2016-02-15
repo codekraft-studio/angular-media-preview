@@ -3,47 +3,72 @@
 ## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
 ## Getting started:
-
-Change to the directive file with your module appname.
+Download it using npm with the following command:
+```bash
+npm i angular-media-preview
+```
+or clone it from GitHub.
+Load the script to your HTML page:
+```html
+<script type="text/javascript" src="mediapreview.module.js"></script>
+```
+and add the module to your app dependencies:
 
 ```javascript
-angular.module('myApp')
-
-  .directive(...)
-```
-and load the script it in your HTML.
-```html
-<script type="text/javascript" src="mediapreview.directive.js"></script>
+angular.module('app', ['angular-media-preview')
 ```
 
-**Basic setup:**
+---
 
-Add the directive to input where you want to listen.
+## Basic usage:
+
+Add the directive to the input where you want to preview media files.
 
 ```html
 <input type="file" ng-model="myUpload" media-preview>
 ```
-Now when some files are selected, the directive will create a preview and display in a container.
-You can specify a custom container adding the attribute: __preview-container__, like so:
+
+Now when some files are selected, the directive will create a preview and display (by default) in a container above the input tag.
+
+You can specify a custom container using the attribute __preview-container__ in the directive. You use in the attribute both a HTML element or a ID that refers to it.
+
+#### Passing element ID
+
 ```html
 <input type="file" ng-model="myUpload" preview-container="myContainer" media-preview>
+
+<div id="myContainer"></div>
+```
+#### Passing a $scope HTML element
+
+If you want to pass a element from the $scope:
+
+```javascript
+app.controller(function($scope) {
+  $scope.theContainer = angular.element(document.createElement('div'));
+  $scope.theContainer.addClass('myClass');
+  // do what you want
+})
+```
+and in the HTML template:
+```html
+<input type="file" ng-model="myUpload" preview-container="theContainer" media-preview>
 ```
 
-The directive will add or override the __accept__ attribute to match only the following accepted media types: audio, image, videos.
+The directive will add or override if not found the input __accept__ attribute to match only the following accepted media types: audio files, images, videos.
 
-And that's it, with this basic configuration you can start trying it by selecting some media file on your computer.
+And __that's it__, you can try it in the demo page.
 
 **Customizations:**
 * __preview-container__: the container that holds the preview elements
 * __container-class__: the class to be added to the preview container
 * __preview-class__: the class to be added to the preview element
 
-If one of the attributes above is specified will override the default behaviours.
+If one of the attributes above is specified will override the default directive behaviours.
+
+---
 
 __IMPORTANT: be sure to have a model bind to your input (attribute ng-model), otherwise the directive will not work!__
 
-__The directive takes care to update your model value, so you don't have to write your own one.__
-
-Check the [example](https://github.com/codekraft-studio/angular-media-preview/tree/master/example) too see how it works!
-
-Developed by [codekraft-studio](http://codekraft.it)
+__The directive takes care to update your model value on change, so you don't have to write your own one.__
+See the issue: [#1375](https://github.com/angular/angular.js/issues/1375)
