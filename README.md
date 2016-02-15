@@ -1,7 +1,8 @@
 # angular-media-preview
 ### create a preview for each selected file
+## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
-**Getting started:**
+## Getting started:
 
 Change to the directive file with your module appname.
 
