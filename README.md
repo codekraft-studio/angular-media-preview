@@ -1,5 +1,5 @@
 # angular-media-preview
-### create a preview for each selected file
+### create a preview for each media file given in input
 ## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
 ## Getting started:
@@ -17,6 +17,7 @@ and add the module to your app dependencies:
 ```javascript
 angular.module('app', ['angular-media-preview')
 ```
+and you are ready to go.
 
 ---
 
@@ -63,8 +64,6 @@ And __that's it__, you can try it in the demo page.
 * __preview-container__: the container that holds the preview elements
 * __container-class__: the class to be added to the preview container
 * __preview-class__: the class to be added to the preview element
-
-If one of the attributes above is specified will override the default directive behaviours.
 
 ---
 
