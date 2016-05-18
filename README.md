@@ -1,5 +1,6 @@
 # angular-media-preview
-### create a preview for each media file given in input
+create a preview for each media file given in input
+
 ## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
 ## Getting started:
