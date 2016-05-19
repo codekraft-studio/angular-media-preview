@@ -3,13 +3,14 @@ create a preview for each media file given in input
 
 ## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
-## Getting started:
+### Getting started:
 Download it using npm with the following command:
 ```bash
 npm i angular-media-preview
 ```
 or clone it from GitHub.
-Load the script to your HTML page:
+
+Add the script to your HTML page:
 ```html
 <script type="text/javascript" src="angular-media-preview.module.js"></script>
 ```
@@ -22,7 +23,7 @@ and you are ready to go.
 
 ---
 
-## Basic usage:
+### Basic usage:
 
 Add the directive to the input where you want to preview media files.
 
@@ -32,7 +33,7 @@ Add the directive to the input where you want to preview media files.
 
 Now when some files are selected, the directive will create a preview and display (by default) in a container above the input tag.
 
-You can specify a custom container using the attribute __preview-container__ in the directive. You use in the attribute both a HTML element or a ID that refers to it.
+You can specify a custom container using the attribute __preview-container__ in the directive. You can use in the attribute both a HTML element or a ID that refers to it.
 
 #### Passing element ID
 
@@ -41,15 +42,15 @@ You can specify a custom container using the attribute __preview-container__ in 
 
 <div id="myContainer"></div>
 ```
+
 #### Passing a $scope HTML element
 
 If you want to pass a element from the $scope:
 
 ```javascript
-app.controller(function($scope) {
+app.controller('MainCtrl', function($scope) {
   $scope.theContainer = angular.element(document.createElement('div'));
   $scope.theContainer.addClass('myClass');
-  // do what you want
 })
 ```
 and in the HTML template:
@@ -61,10 +62,16 @@ The directive will add or override if not found the input __accept__ attribute t
 
 And __that's it__, you can try it in the demo page.
 
-**Customizations:**
+---
+
+#### Customizations:
 * __preview-container__: the container that holds the preview elements
 * __container-class__: the class to be added to the preview container
 * __preview-class__: the class to be added to the preview element
+
+```html
+<input type="file" ng-model="myFile" preview-class="my-preview" media-preview>
+```
 
 ---
 
