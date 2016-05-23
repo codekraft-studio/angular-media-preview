@@ -35,6 +35,8 @@ Now when some files are selected, the directive will create a preview and displa
 
 You can specify a custom container using the attribute __preview-container__ in the directive. You can use in the attribute both a HTML element or a ID that refers to it.
 
+If the **image load fails** the module will use a default icon, called "broken image" taken from Google Icons under the [CC-BY License](https://creativecommons.org/licenses/by/4.0/).
+
 #### Passing element ID
 
 ```html
