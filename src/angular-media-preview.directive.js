@@ -1,145 +1,145 @@
+angular.module('angular-media-preview')
+
 .directive('mediaPreview', function($log, $document) {
 
-  var directive = {
-    restrict: 'A',
-    require: 'ngModel',
-    link: _link
-  }
-
-  return directive;
-
-  function _link(scope, elem, attrs, ngModel) {
-
-    // check if valid input element
-    if( elem[0].nodeName.toLowerCase() !== 'input' ) {
-      $log.warn('mediaPreview:', 'The directive will work only for input element, actual element is a', elem[0].nodeName.toLowerCase());
-      return;
+    var directive = {
+        restrict: 'E',
+        scope: { model: '=?' },
+        template:   '<input type="file" accept="image/*,video/*,audio/*" ng-model="model" />' +
+                    '<input type="button" ng-click="clearPreview()" value="X" />',
+        link: _link
     }
 
-    // check if valid input type file
-    if( attrs.type != 'file' ) {
-      $log.warn('mediaPreview:', 'Expected input type file, received instead:', attrs.type, 'on element:', elem);
-      return;
-    }
+    return directive;
 
-    // set all media type if nothing is specified
-    if( !elem.attr('accept') ) {
-      elem.attr('accept', 'image/*,video/*,audio/*');
-    }
+    function _link(scope, elem, attrs) {
 
-    // the preview container
-    var container;
+        var $input = angular.element( elem.children().eq(0) );
+        // get the model controller
+        var ngModel = $input.controller('ngModel');
 
-    var fallbackImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAA00lEQVR4Ae2XwQqDQAxEveinFD9e2MUfq6Cep7GnrPAg1JVCu5OTvEwe9FLtWlpqR6OyVn2aXbNGdX6KB4OLrmbRyIKsGsksWKsINhbUShM0wVcEk43CnAVY722mMEfBhPWD9mGOAlvBepSDwK1gPc5LASp8fbCJ81KACl9PNkOYo8CfKOtHUpijwJ841y1xToJy5VxXnLPgvUL1OAeBW4F6kKPAnYB6jKPAnYA68PZ/8EOCJtjvfvmdqwjSvR8gTz1YcCiytgs/TvLnvaDi/J2gCV63ZgZdEb12DwAAAABJRU5ErkJggg==";
+        // the preview container
+        var container;
 
-    // get custom class or set default
-    var previewClass = attrs.previewClass || 'media-preview';
+        var fallbackImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAA00lEQVR4Ae2XwQqDQAxEveinFD9e2MUfq6Cep7GnrPAg1JVCu5OTvEwe9FLtWlpqR6OyVn2aXbNGdX6KB4OLrmbRyIKsGsksWKsINhbUShM0wVcEk43CnAVY722mMEfBhPWD9mGOAlvBepSDwK1gPc5LASp8fbCJ81KACl9PNkOYo8CfKOtHUpijwJ841y1xToJy5VxXnLPgvUL1OAeBW4F6kKPAnYB6jKPAnYA68PZ/8EOCJtjvfvmdqwjSvR8gTz1YcCiytgs/TvLnvaDi/J2gCV63ZgZdEb12DwAAAABJRU5ErkJggg==";
 
-    // get custom class or set default
-    var containerClass = attrs.containerClass || 'media-container';
+        // get custom class or set default
+        var previewClass = attrs.previewClass || 'media-preview';
 
-    // as default if nothing is specified or
-    // the element specified is not a valid html
-    // element: create the default media container
-    // and append before input element
-    if( !attrs.previewContainer || ( !document.getElementById(attrs.previewContainer) && !angular.isElement(attrs.previewContainer) ) ) {
+        // get custom class or set default
+        var containerClass = attrs.containerClass || 'media-container';
 
-      // create container
-      container = angular.element( document.createElement('div') );
+        if( typeof attrs.multiple !== 'undefined' && attrs.multiple != 'false' ) {
+            $input.attr('multiple', true);
+        }
 
-      // append before elem
-      elem.parent()[0].insertBefore(container[0], elem[0]);
+        // as default if nothing is specified or
+        // the element specified is not a valid html
+        // element: create the default media container
+        // and append before input element
+        if( !attrs.previewContainer || ( !document.getElementById(attrs.previewContainer) && !angular.isElement(attrs.previewContainer) ) ) {
 
-    } else {
+            // create container
+            container = angular.element( document.createElement('div') );
 
-      // get the container
-      container = angular.isElement(attrs.previewContainer) ? attrs.previewContainer : angular.element(document.getElementById(attrs.previewContainer));
-    }
+            // append before elem
+            elem.parent()[0].insertBefore(container[0], elem[0]);
 
-    // add default class
-    container.addClass(containerClass);
+        } else {
 
-    // add element to the container
-    function addToContainer(element) {
-      element.addClass(previewClass);
-      return container.append( element );
-    }
+            // get the container
+            container = angular.isElement(attrs.previewContainer) ? attrs.previewContainer : angular.element(document.getElementById(attrs.previewContainer));
+        }
 
-    // the change function
-    function onChange(e) {
+        // add default class
+        container.addClass(containerClass);
 
-      // get files
-      var files = elem[0].files;
+        // the change function
+        function onChange(e) {
 
-      // update model value
-      attrs.multiple ? ngModel.$setViewValue(files) : ngModel.$setViewValue(files[0]);
+            // get files from target
+            var files = $input[0].files;
 
-      // reset container
-      container.empty();
+            // update model value
+            attrs.multiple ? ngModel.$setViewValue(files) : ngModel.$setViewValue(files[0]);
 
-      // check if there are files to read
-      if( files && files.length ) {
+            // reset container
+            container.empty();
 
-        // start the load process for each file
-        angular.forEach(files, function(data, index) {
+            // check if there are files to read
+            if( files && files.length ) {
 
-          // init variables
-          var $reader = new FileReader(), result, $mediaElement;
+                // start the load process for each file
+                angular.forEach(files, function(data, index) {
 
-          // set fallback image on error
-          $reader.onloaderror = function (e) {
-            result = fallbackImage;
-          }
+                    // init variables
+                    var $reader = new FileReader(), result, $mediaElement;
 
-          // set resulting image
-          $reader.onload = function (e) {
-            result = e.target.result;
-          }
+                    // set fallback image on error
+                    $reader.onloaderror = function (e) {
+                        result = fallbackImage;
+                    }
 
-          // when file reader has finished
-          // add the source to element and append it
-          $reader.onloadend = function(e) {
+                    // set resulting image
+                    $reader.onload = function (e) {
+                        result = e.target.result;
+                    }
 
-            // if audio
-            if( result.indexOf('data:audio') > -1 ) {
+                    // when file reader has finished
+                    // add the source to element and append it
+                    $reader.onloadend = function(e) {
 
-              $mediaElement = angular.element( document.createElement('audio') );
-              $mediaElement.attr('controls', 'true');
+                        // if audio
+                        if( result.indexOf('data:audio') > -1 ) {
 
-            } else if( result.indexOf('data:video') > -1 ) {
+                            $mediaElement = angular.element( document.createElement('audio') );
+                            $mediaElement.attr('controls', 'true');
 
-              $mediaElement = angular.element( document.createElement('video') );
-              $mediaElement.attr('controls', 'true');
+                        } else if( result.indexOf('data:video') > -1 ) {
 
-            } else {
+                            $mediaElement = angular.element( document.createElement('video') );
+                            $mediaElement.attr('controls', 'true');
 
-              $mediaElement = angular.element( document.createElement('img') );
+                        } else {
+
+                            $mediaElement = angular.element( document.createElement('img') );
+
+                        }
+
+                        // add the source
+                        $mediaElement.attr('src', result);
+                        // add the element class
+                        $mediaElement.addClass(previewClass);
+                        // append to the preview container
+                        container.append( $mediaElement );
+
+                    }
+
+                    // read file
+                    $reader.readAsDataURL( data );
+
+                });
 
             }
 
-            // add the source
-            $mediaElement.attr('src', result);
+        }
 
-            // finally add to the container
-            return addToContainer( $mediaElement );
-          }
+        // clear the preview and the input on click
+        scope.clearPreview = function () {
+            // clear the input value
+            $input.val('');
+            // reset container
+            container.empty();
+        }
 
-          // read file
-          $reader.readAsDataURL( data );
-        })
+        // bind change event
+        elem.on('change', onChange);
 
-      }
+        // unbind event listener to prevent memory leaks
+        scope.$on('$destroy', function () {
+            elem.off('change', onChange);
+        });
 
     }
-
-    // bind change event
-    elem.on('change', onChange)
-
-    // unbind event listener to prevent memory leaks
-    scope.$on('$destroy', function () {
-      elem.off('change', onChange);
-    })
-
-  }
 
 });

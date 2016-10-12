@@ -1,16 +1,16 @@
 {
   "name": "angular-media-preview",
-  "version": "0.0.1",
-  "description": "create a preview for each media file given in input",
+  "version": "0.1.0",
+  "description": "Don't let your users upload the wrong media!",
   "main": "Gruntfile.js",
-  "directories": {
-    "example": "example"
+  "dependencies": {
+    "angular": "^1.5.8"
   },
-  "dependencies": {},
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^1.0.1"
+    "grunt-contrib-uglify": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
