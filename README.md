@@ -1,5 +1,5 @@
 # angular-media-preview
-create a preview for each media file given in input
+Don't let your users upload the wrong media! 
 
 ## [DEMO](http://www.codekraft.it/demos/angular-media-preview/)
 
