@@ -1,0 +1,24 @@
+{
+  "name": "angular-media-preview",
+  "description": "Don't let your users upload the wrong media!",
+  "main": "dist/angular-media-preview.js",
+  "authors": [
+    "codekraft-studio"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angularjs",
+    "media",
+    "preview",
+    "input",
+    "file"
+  ],
+  "homepage": "https://github.com/codekraft-studio/angular-media-preview",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
