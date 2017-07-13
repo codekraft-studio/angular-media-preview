@@ -25,7 +25,12 @@ and you are ready to use the new directive.
 
 ### Basic usage:
 
-Add the directive to the input where you want to preview media files.
+You can use it as an attribute on the input type file:
+```html
+<input type="file" media-preview />
+```
+
+Or as a element where you want to preview media files.
 
 ```html
 <!-- without ng-model -->
@@ -44,6 +49,11 @@ If the **image load fails** the module will use a default icon, called "broken i
 #### Passing element ID:
 
 ```html
+<div id="myContainer"></div>
+<input type="file" preview-class="img-thumbnail" preview-container="mediaHere" multiple media-preview />
+```
+
+```html
 <media-preview preview-class="img-thumbnail" preview-container="mediaHere" multiple></media-preview>
 <div id="myContainer"></div>
 ```
@@ -60,6 +70,8 @@ app.controller('MainCtrl', function($scope) {
 ```
 and in the HTML template:
 ```html
+<input type="file" ng-model="myUpload" preview-container="theContainer" media-preview />
+
 <media-preview ng-model="myUpload" preview-container="theContainer"></media-preview>
 ```
 
